@@ -1,0 +1,13 @@
+{
+    "type": "service_account",
+    "project_id": "edubot-bxfs",
+    "private_key_id": "9f770af0551811a1b7e06d2c45249d65a640611f",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC3kk+s+HlEbOXD\nyx5rtAHDNnhAhdRmQQz2VAg+/MVFG44QmEHTL2xqe4x9bE4WZUw92Q5HJThRVxmp\nC7xJpSvvqZtH8oTAmXwiVPyEYtSakosfi1f8gzVDnwsR5USLKbtJ9bw4RpCk0UoP\nJMxc/1sk2QAa3lFFjlHSoex1oPWyTjxeczcgLzpl2ylkMRYDfAthPiEWiZuBnknI\nhuhVX+Q4agwhE03F8CYZ7YD+4Hrv6KSczPb6eMesO4rXoxItqGBcj0+qRCIW+qbO\n55bM4Cc7/l+Kt8z2xbJev9cM/SilaUjLexh8pISOgT5hjY4nyX2T6vTioeDPflpk\nf50G2qdbAgMBAAECggEARqHgz1Sh0G64L5BZiaZu4S51sZns4lVYR/WIYLgArXkP\nPhpfhYMjS4tzQJUqLJrYbZm1UTGkjEOfx3gRACMyFxqi+Vl6s+K6rTkXGlcup7UI\nG+CRP8M6fOTWrRGSwJsTib8oJ10bbZdr0AzgJ05HwxNN44i0K7e5ivqr0YzXzL1/\ndMTs40WZk2YqKkQ0oSiU02khmbVrFniA9lbJg5tV7B6ZQYHNipZHZSGg4D9MN9Vz\nl+4x76i4MJTEIuQupSwStUu03nQiWxmTPS6CWY1vUN7mf0f8PLEz8R0x837AdLkA\nM1PQZKcoKNY/OzS8P2lQ6moUc/dV1DrJYnt/S7AZkQKBgQDng6nV8pkyjZxeSZQY\ntkR7zVATvJHSbdMYtY7t0UMJicytiHX48dqmeDj0g7F+xyAnM4CKH7G1et0qDYDT\nMdetQh2tp7Xy7m8ShFEmr7Tx//rZBhrubBe+1+Iuvq8akBuzFUk0XFuZWx6lt4Zv\nsvtTVD1/GbxfxU5DnQh5tJOy6wKBgQDK/JQ8p2lC8fARgmTrqex4m9064+YkqQ8R\nt0XD7J/2h5rp+mTN16d9oz+GjwdytC9M/0rp9c+gL93ZutDtbvaIVsdQlBh7nxoZ\n1ZZjCZUgPzmGllVaTxzd0tKFG08WAImUTrBt9Mmowq7ILnT9iBVfnaux6kImIyvD\nViJA6vxhUQKBgQDHKboiRqhKGA7sAgo4VByIEHER+YfM6hPOzundZsdv3i7JHnq2\npYD+8q+0kdJRCQZ9Es5ChM+BGuhGNAWeKeOrthQH/x4Eld/RoyiYylE0Wo02xAzJ\nDQ5EbD21Du9eP5jEr8whEk7ul7e+wioRz3xsDC03OTGXhgo1GlNfN9xT7wKBgCdo\nH5Mi4RGJDJUpnlQN+gV0JN/Q7JYDaBSFYvrlTiy7KLzxym4XxsFiVuvVipmfF2u4\nSB/hg7xSbpxdY0AlAaF4T1t6VMJzIcsQJxD1BEltXMqfFtTgdPcvfYUvxwu7cPok\nyKWgFyI3IV1lf3rU12lnn7R7iPoEa/ORHjdCJ1rxAoGBALV5gCW3eIC7XdgkMetN\nUVDuRHgczTk+BZ8hg2Pf0QPtPyLNyscYsqepDRJqT0AwDEQHh90A3JcZgt84t2x6\nhK982P7sLJZIwHomp+GKP8ZDNVvJ/pfl9Safmu2ywSYRs9yt6H2DkbZ9T+um8HQE\nqaefjJVIMcBCdYVjmSY31IMJ\n-----END PRIVATE KEY-----\n",
+    "client_email": "edulystbot@edubot-bxfs.iam.gserviceaccount.com",
+    "client_id": "103419247523011469905",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/edulystbot%40edubot-bxfs.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }
