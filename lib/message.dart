@@ -28,164 +28,194 @@ class MessagesScreenState extends State<MessagesScreen> {
 
     print('scrolled list to end');
   }
+  @override
+void initState() {
+  super.initState();
+  listScrollController.addListener(_scrollListener);
+}
 @override
   void dispose() {
     listScrollController.dispose();
     super.dispose();
   }
+  void _scrollListener() {
+  if ( listScrollController.offset >=
+      listScrollController.position.maxScrollExtent &&
+      !listScrollController.position.outOfRange) {
+    // Reach the end of the list, perform any desired action here
+  }
+}
 
 
   @override
   Widget build(BuildContext context) {
     var w = MediaQuery.of(context).size.width;
     var h = MediaQuery.of(context).size.height;
-    return ListView.separated(
-        controller: listScrollController,
-        itemBuilder: (context, index) {
-          Message msg = widget.messages[index]['message'];
-          scrollListToEND();
-          return Container(
-            margin: const EdgeInsets.all(10),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: widget.messages[index]['isUserMessage']
-                  ? MainAxisAlignment.end
-                  : MainAxisAlignment.start,
-              children: [
-                Image.asset(
-                  widget.messages[index]['isUserMessage']
-                      ? 'assets/user.png'
-                      : 'assets/edubot.png',
-                  height: 30,
-                  width: 30,
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                Container(
-                    // height:
-                    //     widget.messages[index]['message']?.text?.text[0] == null
-                    //         ? 300
-                    //         : 60,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 14, horizontal: 14),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: const Radius.circular(
-                            20,
-                          ),
-                          topRight: const Radius.circular(20),
-                          bottomRight: Radius.circular(
-                              widget.messages[index]['isUserMessage'] ? 0 : 20),
-                          topLeft: Radius.circular(
-                              widget.messages[index]['isUserMessage'] ? 20 : 0),
+    return SafeArea(
+      child: Column(
+        children: [
+          Flexible(
+            child: ListView.builder(
+                controller: listScrollController,
+                  shrinkWrap: true,
+
+                itemBuilder: (context, index) {
+                   controller: listScrollController;
+                  Message msg = widget.messages[index]['message'];
+                  // scrollListToEND();
+                  if (index == widget.messages.length - 1) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                   scrollListToEND();
+                  });
+                }
+                  
+                  
+                  return Container(
+                    margin: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: widget.messages[index]['isUserMessage']
+                          ? MainAxisAlignment.end
+                          : MainAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          widget.messages[index]['isUserMessage']
+                              ? 'assets/user.png'
+                              : 'assets/edubot.png',
+                          height: 30,
+                          width: 30,
                         ),
-                        color: widget.messages[index]['isUserMessage']
-                            ? const Color(0xff7062e3)
-                            : Color.fromRGBO(157, 210, 167, 1)
-                                .withOpacity(0.8)),
-                    constraints: widget.messages[index]['isUserMessage']
-                   ? BoxConstraints(maxWidth: w * 2 / 3)
-                   : BoxConstraints(maxWidth: w * 2 / 3),
-                    child: widget.messages[index]['message']?.text?.text[0] ==
-                            null
-                        ? InkWell(
-                            onTap: () {
-                              launchUrl(Uri.parse(
-                                  '${msg.payload?['richContent'][0][0]['actionLink']}'));
-                            },
-                            child: SingleChildScrollView(
-                               
-                              child: Column(
-                                children: [
-                                  Image.network(
-                                      '${msg.payload?['richContent'][0][0]['rawUrl']}',
-                                      width: widget.messages[index]['message']
-                                                  ?.text?.text[0] ==
-                                              null
-                                          ? 400
-                                          : 100,
-                                      height: 170,
-                                      fit: BoxFit.cover),
-                                  const SizedBox(height: 10),
-                                  SizedBox(
-                                    height: 100,
-                                    width: 600,
-                                    child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          // Text(
-                                          //     'widget.messages[index]['message']?.text?.text[0]'),
-                                          Text(
-                                              '${msg.payload?['richContent'][0][0]['title']}'),
-                                          Text(
-                                              '${msg.payload?['richContent'][0][0]['enrollment']}'),
-                                              Text(
-                                              '${msg.payload?['richContent'][0][0]['duration']}'),
-                                          Text(
-                                              style: const TextStyle(
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                  color: Colors.white),
-                                              maxLines: 3,
-                                              overflow: TextOverflow.ellipsis,
-                                              '${msg.payload?['richContent'][0][0]['rawUrl']}'),
-                                          // Text(
-                                          //     '${msg.payload?['richContent'][0][2]['options'][0]['text']}')
-                                        ]),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Container(
+                            // height:
+                            //     widget.messages[index]['isUserMessage']
+                            //         ? 50
+                            //         : 60,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 14, horizontal: 14),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: const Radius.circular(
+                                    20,
                                   ),
-                                ],
-                              ),
-                            ))
-
-                        //show playload
-                        // ? InkWell(
-                        //     onTap: () {
-                        //       print('dddd${widget.messages[index]['message']}');
-                        //       launchUrl(Uri.parse('${msg.payload?['richContent'][0][2]['options'][0]['link']}'));
-                        //     },
-                        //     child: Row(children: [
-                        //       Image.network(
-                        //           '${msg.payload?['richContent'][0][0]['rawUrl']}',
-                        //           width: 100,
-                        //           height: 100,
-                        //           fit: BoxFit.cover),
-                        //           SizedBox(width:10),
-
-                        //           Container(
-                        //             height:100,
-                        //             width: 130,
-                        //             child: Column(
-
-                        //               crossAxisAlignment: CrossAxisAlignment.start,
-                        //               children:[
-                        //                 Text('${msg.payload?['richContent'][0][2]['options'][0]['text']}')
-
-                        //                 // Text('${msg.payload?['richContent'][0][1]['options'][0]['text']}'),
-                        //                 // Text('${msg.payload?['richContent'][0][1]['options'][0]['link']}'),
-                        //                 // Text('${msg.payload?['richContent'][0][0]['options'][0]['rawUrl']}'),
-
-                        //             ]),
-                        //           )
-                        //     ]))
-
-                        : 
-                        
-                        ClickableLink(
-                            text:
-                                '${widget.messages[index]['message'].text.text[0]}')
-                    // child: Text('${msg.payload}')
-                    // child: Text('${widget.messages[index]['message']?.text?.text[0]}')
-
+                                  topRight: const Radius.circular(20),
+                                  bottomRight: Radius.circular(
+                                      widget.messages[index]['isUserMessage'] ? 0 : 20),
+                                  topLeft: Radius.circular(
+                                      widget.messages[index]['isUserMessage'] ? 20 : 0),
+                                ),
+                                color: widget.messages[index]['isUserMessage']
+                                    ? const Color(0xff7062e3)
+                                    : Color.fromRGBO(157, 210, 167, 1)
+                                        .withOpacity(0.8)),
+                            constraints: BoxConstraints(maxWidth: w * 2/3),
+                          //   constraints: widget.messages[index]['isUserMessage']
+                          //  ? BoxConstraints(maxWidth: w * 2 / 3,maxHeight: h * 3/2)
+                          //  : BoxConstraints(maxWidth: w * 2 / 3,maxHeight: h * 6/2),
+                            child: widget.messages[index]['message']?.text?.text[0] ==
+                                    null
+                                ? InkWell(
+                                    onTap: () {
+                                      launchUrl(Uri.parse(
+                                          '${msg.payload?['richContent'][0][0]['actionLink']}'));
+                                    },
+                                    child: SingleChildScrollView(
+                                       
+                                      child: Column(
+                                        children: [
+                                          Image.network(
+                                              '${msg.payload?['richContent'][0][0]['rawUrl']}',
+                                              width: widget.messages[index]['message']
+                                                          ?.text?.text[0] ==
+                                                      null
+                                                  ? 400
+                                                  : 100,
+                                              height: 170,
+                                              fit: BoxFit.cover),
+                                          const SizedBox(height: 10),
+                                          SizedBox(
+                                            height: 100,
+                                            width: 600,
+                                            child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  // Text(
+                                                  //     'widget.messages[index]['message']?.text?.text[0]'),
+                                                  Text(
+                                                      '${msg.payload?['richContent'][0][0]['title']}'),
+                                                  Text(
+                                                      '${msg.payload?['richContent'][0][0]['enrollment']}'),
+                                                      Text(
+                                                      '${msg.payload?['richContent'][0][0]['duration']}'),
+                                                  Text(
+                                                      style: const TextStyle(
+                                                          decoration:
+                                                              TextDecoration.underline,
+                                                          color: Colors.white),
+                                                      maxLines: 3,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      '${msg.payload?['richContent'][0][0]['rawUrl']}'),
+                                                  // Text(
+                                                  //     '${msg.payload?['richContent'][0][2]['options'][0]['text']}')
+                                                ]),
+                                          ),
+                                        ],
+                                      ),
+                                    ))
+            
+                                //show playload
+                                // ? InkWell(
+                                //     onTap: () {
+                                //       print('dddd${widget.messages[index]['message']}');
+                                //       launchUrl(Uri.parse('${msg.payload?['richContent'][0][2]['options'][0]['link']}'));
+                                //     },
+                                //     child: Row(children: [
+                                //       Image.network(
+                                //           '${msg.payload?['richContent'][0][0]['rawUrl']}',
+                                //           width: 100,
+                                //           height: 100,
+                                //           fit: BoxFit.cover),
+                                //           SizedBox(width:10),
+            
+                                //           Container(
+                                //             height:100,
+                                //             width: 130,
+                                //             child: Column(
+            
+                                //               crossAxisAlignment: CrossAxisAlignment.start,
+                                //               children:[
+                                //                 Text('${msg.payload?['richContent'][0][2]['options'][0]['text']}')
+            
+                                //                 // Text('${msg.payload?['richContent'][0][1]['options'][0]['text']}'),
+                                //                 // Text('${msg.payload?['richContent'][0][1]['options'][0]['link']}'),
+                                //                 // Text('${msg.payload?['richContent'][0][0]['options'][0]['rawUrl']}'),
+            
+                                //             ]),
+                                //           )
+                                //     ]))
+            
+                                : 
+                                
+                                ClickableLink(
+                                    text:
+                                        '${widget.messages[index]['message'].text.text[0]}')
+                            // child: Text('${msg.payload}')
+                            // child: Text('${widget.messages[index]['message']?.text?.text[0]}')
+            
+                            ),
+                      ],
                     ),
-              ],
-            ),
-          );
-        },
-        separatorBuilder: (_, i) =>
-            const Padding(padding: EdgeInsets.only(top: 10)),
-        itemCount: widget.messages.length);
+                  );
+                },
+                // separatorBuilder: (_, i) =>
+                //     const Padding(padding: EdgeInsets.only(top: 10)),
+                itemCount: widget.messages.length),
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -208,7 +238,6 @@ class MessagesScreenState extends State<MessagesScreen> {
 //     labelPadding: const EdgeInsets.all(2.0),
 //     avatar: CircleAvatar(
 //       backgroundColor: Colors.white70,
-//       child: Text(label[0].toUpperCase()),
 //     ),
 //     label: Text(
 //       label,
