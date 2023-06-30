@@ -260,8 +260,9 @@ class ClickableLink extends StatelessWidget {
   void openLink(String url) {
     print('url is $url');
     //  launchUrl(Uri.parse(url));
+     
     launch(
-        "https://pcsupport.lenovo.com/in/en/products/laptops-and-netbooks/100-series/110-15isk/downloads/ds118020");
+        "https://singularis.learningoxygen.com/");
   }
 
   @override
