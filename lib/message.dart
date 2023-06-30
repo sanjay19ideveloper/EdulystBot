@@ -209,8 +209,7 @@ void initState() {
                     ),
                   );
                 },
-                // separatorBuilder: (_, i) =>
-                //     const Padding(padding: EdgeInsets.only(top: 10)),
+                
                 itemCount: widget.messages.length),
           ),
         ],
@@ -238,6 +237,7 @@ void initState() {
 //     labelPadding: const EdgeInsets.all(2.0),
 //     avatar: CircleAvatar(
 //       backgroundColor: Colors.white70,
+//       child: Text(label[0].toUpperCase()),
 //     ),
 //     label: Text(
 //       label,
