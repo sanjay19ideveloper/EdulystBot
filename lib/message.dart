@@ -47,6 +47,7 @@ class MessagesScreenState extends State<MessagesScreen> {
           return Container(
             margin: const EdgeInsets.all(10),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: widget.messages[index]['isUserMessage']
                   ? MainAxisAlignment.end
                   : MainAxisAlignment.start,
@@ -62,10 +63,10 @@ class MessagesScreenState extends State<MessagesScreen> {
                   width: 8,
                 ),
                 Container(
-                    height:
-                        widget.messages[index]['message']?.text?.text[0] == null
-                            ? 300
-                            : 60,
+                    // height:
+                    //     widget.messages[index]['message']?.text?.text[0] == null
+                    //         ? 300
+                    //         : 60,
                     padding: const EdgeInsets.symmetric(
                         vertical: 14, horizontal: 14),
                     decoration: BoxDecoration(
@@ -84,8 +85,8 @@ class MessagesScreenState extends State<MessagesScreen> {
                             : Color.fromRGBO(157, 210, 167, 1)
                                 .withOpacity(0.8)),
                     constraints: widget.messages[index]['isUserMessage']
-                   ? BoxConstraints(maxWidth: w * 2 / 3,maxHeight: h * 3/2)
-                   : BoxConstraints(maxWidth: w * 2 / 3,maxHeight: h * 2),
+                   ? BoxConstraints(maxWidth: w * 2 / 3)
+                   : BoxConstraints(maxWidth: w * 2 / 3),
                     child: widget.messages[index]['message']?.text?.text[0] ==
                             null
                         ? InkWell(
