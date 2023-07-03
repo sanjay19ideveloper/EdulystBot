@@ -315,6 +315,7 @@ class ClickableLink extends StatelessWidget {
         if (start < linkStart) {
           spans.add(TextSpan(text: text.substring(start, linkStart)));
         }
+       
 
         spans.add(
           TextSpan(
@@ -363,6 +364,10 @@ class ClickableLink extends StatelessWidget {
     return Column(
        crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        if(!isUserMessage)
+        
+       Text('Edulyst Venture',),
+        const SizedBox(height: 10),
         RichText(
           text: TextSpan(children: spans),
          
