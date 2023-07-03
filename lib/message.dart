@@ -38,6 +38,7 @@ String getFormattedTime() {
 
 
 
+
   @override
 void initState() {
   super.initState();
@@ -59,14 +60,39 @@ void initState() {
 
   @override
   Widget build(BuildContext context) {
+    String getFormattedDate() {
+  DateTime now = DateTime.now();
+  DateTime formattedDate = DateTime(now.year, now.month, now.day); // Remove the time portion
+  DateTime tomorrowDate = DateTime(now.year, now.month, now.day + 1); // Get tomorrow's date
+
+  if (formattedDate == now) {
+    return 'Today';
+  } else if (formattedDate == tomorrowDate) {
+    return 'Tomorrow';
+  } else {
+    String formattedDate = DateFormat.yMMMMd().format(now);
+    return formattedDate;
+  }
+}
+
     DateTime now = DateTime.now();
 String formattedTime = DateFormat('h:mm a').format(now);
     String time = getFormattedTime();
+    String formattedDate = DateFormat.yMMMMd().format(now);
+
+ 
     var w = MediaQuery.of(context).size.width;
     var h = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Column(
         children: [
+          SizedBox(height:10),
+          
+  Text(getFormattedDate(),style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
+         
+        // Text(formattedDate,style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold),
+        //           ),
+
           Flexible(
             child: ListView.builder(
                 controller: listScrollController,
@@ -125,7 +151,7 @@ String formattedTime = DateFormat('h:mm a').format(now);
                                         .withOpacity(0.8)),
                           //  constraints: BoxConstraints(maxWidth: w * 2/3),
                             constraints: widget.messages[index]['isUserMessage']
-                           ? BoxConstraints(maxWidth: w * 2 / 3,)
+                           ? BoxConstraints(maxWidth: w * 1 / 3,)
                            : BoxConstraints(maxWidth: w * 2 / 3,),
                             child: widget.messages[index]['message']?.text?.text[0] ==
                                     null
