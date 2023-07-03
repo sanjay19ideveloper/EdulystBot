@@ -149,10 +149,10 @@ String formattedTime = DateFormat('h:mm a').format(now);
                                     ? const Color(0xff7062e3)
                                     : Color.fromRGBO(157, 210, 167, 1)
                                         .withOpacity(0.8)),
-                          //  constraints: BoxConstraints(maxWidth: w * 2/3),
-                            constraints: widget.messages[index]['isUserMessage']
-                           ? BoxConstraints(maxWidth: w * 1 / 3,)
-                           : BoxConstraints(maxWidth: w * 2 / 3,),
+                          constraints: BoxConstraints(maxWidth: w * 2/3),
+                          //   constraints: widget.messages[index]['isUserMessage']
+                          //  ? BoxConstraints(maxWidth: w * 2 / 3,)
+                          //  : BoxConstraints(maxWidth: w * 2 / 3,),
                             child: widget.messages[index]['message']?.text?.text[0] ==
                                     null
                                 ? InkWell(
