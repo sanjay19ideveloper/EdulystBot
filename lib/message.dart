@@ -1,10 +1,12 @@
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/gestures.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class MessagesScreen extends StatefulWidget {
+  
   final List messages;
   const MessagesScreen({Key? key, required this.messages}) : super(key: key);
 
@@ -28,6 +30,14 @@ class MessagesScreenState extends State<MessagesScreen> {
 
     print('scrolled list to end');
   }
+String getFormattedTime() {
+  DateTime now = DateTime.now();
+  String formattedTime = DateFormat.Hms().format(now);
+  return formattedTime;
+}
+
+
+
   @override
 void initState() {
   super.initState();
@@ -49,6 +59,9 @@ void initState() {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+String formattedTime = DateFormat('h:mm a').format(now);
+    String time = getFormattedTime();
     var w = MediaQuery.of(context).size.width;
     var h = MediaQuery.of(context).size.height;
     return SafeArea(
@@ -62,6 +75,7 @@ void initState() {
                 itemBuilder: (context, index) {
                    controller: listScrollController;
                   Message msg = widget.messages[index]['message'];
+                  
                   // scrollListToEND();
                   if (index == widget.messages.length - 1) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -109,10 +123,10 @@ void initState() {
                                     ? const Color(0xff7062e3)
                                     : Color.fromRGBO(157, 210, 167, 1)
                                         .withOpacity(0.8)),
-                            constraints: BoxConstraints(maxWidth: w * 2/3),
-                          //   constraints: widget.messages[index]['isUserMessage']
-                          //  ? BoxConstraints(maxWidth: w * 2 / 3,maxHeight: h * 3/2)
-                          //  : BoxConstraints(maxWidth: w * 2 / 3,maxHeight: h * 6/2),
+                          //  constraints: BoxConstraints(maxWidth: w * 2/3),
+                            constraints: widget.messages[index]['isUserMessage']
+                           ? BoxConstraints(maxWidth: w * 2 / 3,)
+                           : BoxConstraints(maxWidth: w * 2 / 3,),
                             child: widget.messages[index]['message']?.text?.text[0] ==
                                     null
                                 ? InkWell(
@@ -124,6 +138,7 @@ void initState() {
                                        
                                       child: Column(
                                         children: [
+                                          
                                           Image.network(
                                               '${msg.payload?['richContent'][0][0]['rawUrl']}',
                                               width: widget.messages[index]['message']
@@ -159,6 +174,14 @@ void initState() {
                                                       '${msg.payload?['richContent'][0][0]['rawUrl']}'),
                                                   // Text(
                                                   //     '${msg.payload?['richContent'][0][2]['options'][0]['text']}')
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                    children: [
+                                                      
+                                                      Text(formattedTime),
+                                                    ],
+                                                  )
+
                                                 ]),
                                           ),
                                         ],
@@ -200,11 +223,16 @@ void initState() {
                                 
                                 ClickableLink(
                                     text:
-                                        '${widget.messages[index]['message'].text.text[0]}')
+                                        '${widget.messages[index]['message'].text.text[0]}',
+                                        time:'${formattedTime}',
+                                        isUserMessage: widget.messages[index]['isUserMessage'],
+                                        ),
                             // child: Text('${msg.payload}')
                             // child: Text('${widget.messages[index]['message']?.text?.text[0]}')
+                           
             
                             ),
+                            
                       ],
                     ),
                   );
@@ -252,10 +280,14 @@ void initState() {
 //   );
 // }
 
+
 class ClickableLink extends StatelessWidget {
   final String text;
+  final String time;
+ final bool isUserMessage;
+ 
 
-  const ClickableLink({Key? key, required this.text}) : super(key: key);
+  const ClickableLink({Key? key, required this.text,required this.isUserMessage,required this.time}) : super(key: key);
 
   void openLink(String url) {
     print('url is $url');
@@ -264,6 +296,7 @@ class ClickableLink extends StatelessWidget {
     launch(
         "https://singularis.learningoxygen.com/");
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -302,9 +335,59 @@ class ClickableLink extends StatelessWidget {
     if (start < text.length) {
       spans.add(TextSpan(text: text.substring(start)));
     }
+    //     spans.add(
+          
+    //   TextSpan(
+    //     text: ' $time', // Include the formatted time here
+    //     style: TextStyle(
+    //       fontSize: 12,
+    //       // fontStyle: FontStyle.italic,
+    //     ),
+    //   ),
+    // );
+    
+ 
+// Text.rich(
+//   TextSpan(
+//     children: [
+//       TextSpan(text: 'Hello '),
+//       TextSpan(
+//         text: 'bold',
+//         style: TextStyle(fontWeight: FontWeight.bold),
+//       ),
+//       TextSpan(text: ' world!'),
+//     ],
+//   ),
+// );
 
-    return RichText(
-      text: TextSpan(children: spans),
+    return Column(
+       crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        RichText(
+          text: TextSpan(children: spans),
+         
+          
+           
+     ),
+      const SizedBox(width: 5),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              time,
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
+            SizedBox(width:5),
+             if (isUserMessage) 
+                        Icon(
+                         Icons.done_all,
+                          color: Colors.blue,
+                          size: 18,
+                        ),
+            
+          ],
+        ),
+      ],
     );
   }
 }
