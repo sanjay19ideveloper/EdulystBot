@@ -204,7 +204,7 @@ String formattedTime = DateFormat('h:mm a').format(now);
                                                     mainAxisAlignment: MainAxisAlignment.end,
                                                     children: [
                                                       
-                                                      Text(formattedTime),
+                                                      Text(formattedTime,style:TextStyle(color:Colors.grey)),
                                                     ],
                                                   )
 
