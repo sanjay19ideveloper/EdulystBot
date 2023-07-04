@@ -132,8 +132,11 @@ class MessagesScreenState extends State<MessagesScreen> {
                           //     widget.messages[index]['isUserMessage']
                           //         ? 50
                           //         : 60,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 14, horizontal: 14),
+                          padding: EdgeInsets.symmetric(
+                              vertical: widget.messages[index]['isUserMessage']
+                                  ? 0
+                                  : 14,
+                              horizontal: 14),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
                                 bottomLeft: const Radius.circular(
@@ -153,7 +156,9 @@ class MessagesScreenState extends State<MessagesScreen> {
                                   ? const Color(0xff7062e3)
                                   : Color.fromRGBO(157, 210, 167, 1)
                                       .withOpacity(0.8)),
-                          constraints: BoxConstraints(maxWidth: w * 2 / 3),
+                          constraints: widget.messages[index]['isUserMessage']
+                              ? null
+                              : BoxConstraints(maxWidth: w * 2 / 3),
                           //   constraints: widget.messages[index]['isUserMessage']
                           //  ? BoxConstraints(maxWidth: w * 2 / 3,)
                           //  : BoxConstraints(maxWidth: w * 2 / 3,),
@@ -356,7 +361,8 @@ class ClickableLink extends StatelessWidget {
               decoration: TextDecoration.underline,
             ),
             recognizer: TapGestureRecognizer()
-              ..onTap = () => openLink(linkText.replaceAll(')', '').replaceAll('(', '')),
+              ..onTap = () =>
+                  openLink(linkText.replaceAll(')', '').replaceAll('(', '')),
           ),
         );
 
