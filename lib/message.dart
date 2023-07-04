@@ -6,7 +6,6 @@ import 'package:flutter/gestures.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class MessagesScreen extends StatefulWidget {
-  
   final List messages;
   const MessagesScreen({Key? key, required this.messages}) : super(key: key);
 
@@ -30,86 +29,87 @@ class MessagesScreenState extends State<MessagesScreen> {
 
     print('scrolled list to end');
   }
-String getFormattedTime() {
-  DateTime now = DateTime.now();
-  String formattedTime = DateFormat.Hms().format(now);
-  return formattedTime;
-}
 
-
-
+  String getFormattedTime() {
+    DateTime now = DateTime.now();
+    String formattedTime = DateFormat.Hms().format(now);
+    return formattedTime;
+  }
 
   @override
-void initState() {
-  super.initState();
-  listScrollController.addListener(_scrollListener);
-}
-@override
+  void initState() {
+    super.initState();
+    listScrollController.addListener(_scrollListener);
+  }
+
+  @override
   void dispose() {
     listScrollController.dispose();
     super.dispose();
   }
-  void _scrollListener() {
-  if ( listScrollController.offset >=
-      listScrollController.position.maxScrollExtent &&
-      !listScrollController.position.outOfRange) {
-    // Reach the end of the list, perform any desired action here
-  }
-}
 
+  void _scrollListener() {
+    if (listScrollController.offset >=
+            listScrollController.position.maxScrollExtent &&
+        !listScrollController.position.outOfRange) {
+      // Reach the end of the list, perform any desired action here
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     String getFormattedDate() {
-  DateTime now = DateTime.now();
-  DateTime formattedDate = DateTime(now.year, now.month, now.day); // Remove the time portion
-  DateTime tomorrowDate = DateTime(now.year, now.month, now.day + 1); // Get tomorrow's date
+      DateTime now = DateTime.now();
+      DateTime formattedDate =
+          DateTime(now.year, now.month, now.day); // Remove the time portion
+      DateTime tomorrowDate =
+          DateTime(now.year, now.month, now.day + 1); // Get tomorrow's date
 
-  if (formattedDate == now) {
-    return 'Today';
-  } else if (formattedDate == tomorrowDate) {
-    return 'Tomorrow';
-  } else {
-    String formattedDate = DateFormat.yMMMMd().format(now);
-    return formattedDate;
-  }
-}
+      if (formattedDate == now) {
+        return 'Today';
+      } else if (formattedDate == tomorrowDate) {
+        return 'Tomorrow';
+      } else {
+        String formattedDate = DateFormat.yMMMMd().format(now);
+        return formattedDate;
+      }
+    }
 
     DateTime now = DateTime.now();
-String formattedTime = DateFormat('h:mm a').format(now);
+    String formattedTime = DateFormat('h:mm a').format(now);
     String time = getFormattedTime();
     String formattedDate = DateFormat.yMMMMd().format(now);
 
- 
     var w = MediaQuery.of(context).size.width;
     var h = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Column(
         children: [
-          SizedBox(height:10),
-          
-  Text(getFormattedDate(),style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
-         
-        // Text(formattedDate,style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold),
-        //           ),
+          SizedBox(height: 10),
+
+          Text(getFormattedDate(),
+              style:
+                  TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
+
+          // Text(formattedDate,style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold),
+          //           ),
 
           Flexible(
             child: ListView.builder(
                 controller: listScrollController,
-                  shrinkWrap: true,
-
+                shrinkWrap: true,
                 itemBuilder: (context, index) {
-                   controller: listScrollController;
+                  controller:
+                  listScrollController;
                   Message msg = widget.messages[index]['message'];
-                  
+
                   // scrollListToEND();
                   if (index == widget.messages.length - 1) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                   scrollListToEND();
-                  });
-                }
-                  
-                  
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      scrollListToEND();
+                    });
+                  }
+
                   return Container(
                     margin: const EdgeInsets.all(10),
                     child: Row(
@@ -128,142 +128,147 @@ String formattedTime = DateFormat('h:mm a').format(now);
                           width: 8,
                         ),
                         Container(
-                            // height:
-                            //     widget.messages[index]['isUserMessage']
-                            //         ? 50
-                            //         : 60,
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 14, horizontal: 14),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: const Radius.circular(
-                                    20,
-                                  ),
-                                  topRight: const Radius.circular(20),
-                                  bottomRight: Radius.circular(
-                                      widget.messages[index]['isUserMessage'] ? 0 : 20),
-                                  topLeft: Radius.circular(
-                                      widget.messages[index]['isUserMessage'] ? 20 : 0),
+                          // height:
+                          //     widget.messages[index]['isUserMessage']
+                          //         ? 50
+                          //         : 60,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 14, horizontal: 14),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: const Radius.circular(
+                                  20,
                                 ),
-                                color: widget.messages[index]['isUserMessage']
-                                    ? const Color(0xff7062e3)
-                                    : Color.fromRGBO(157, 210, 167, 1)
-                                        .withOpacity(0.8)),
-                          constraints: BoxConstraints(maxWidth: w * 2/3),
+                                topRight: const Radius.circular(20),
+                                bottomRight: Radius.circular(
+                                    widget.messages[index]['isUserMessage']
+                                        ? 0
+                                        : 20),
+                                topLeft: Radius.circular(widget.messages[index]
+                                        ['isUserMessage']
+                                    ? 20
+                                    : 0),
+                              ),
+                              color: widget.messages[index]['isUserMessage']
+                                  ? const Color(0xff7062e3)
+                                  : Color.fromRGBO(157, 210, 167, 1)
+                                      .withOpacity(0.8)),
+                          constraints: BoxConstraints(maxWidth: w * 2 / 3),
                           //   constraints: widget.messages[index]['isUserMessage']
                           //  ? BoxConstraints(maxWidth: w * 2 / 3,)
                           //  : BoxConstraints(maxWidth: w * 2 / 3,),
-                            child: widget.messages[index]['message']?.text?.text[0] ==
-                                    null
-                                ? InkWell(
-                                    onTap: () {
-                                      launchUrl(Uri.parse(
-                                          '${msg.payload?['richContent'][0][0]['actionLink']}'));
-                                    },
-                                    child: SingleChildScrollView(
-                                       
-                                      child: Column(
-                                        children: [
-                                          
-                                          Image.network(
-                                              '${msg.payload?['richContent'][0][0]['rawUrl']}',
-                                              width: widget.messages[index]['message']
-                                                          ?.text?.text[0] ==
-                                                      null
-                                                  ? 400
-                                                  : 100,
-                                              height: 170,
-                                              fit: BoxFit.cover),
-                                          const SizedBox(height: 10),
-                                          SizedBox(
-                                            height: 100,
-                                            width: 600,
-                                            child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  // Text(
-                                                  //     'widget.messages[index]['message']?.text?.text[0]'),
-                                                  Text(
-                                                      '${msg.payload?['richContent'][0][0]['title']}'),
-                                                  Text(
-                                                      '${msg.payload?['richContent'][0][0]['enrollment']}'),
-                                                      Text(
-                                                      '${msg.payload?['richContent'][0][0]['duration']}'),
-                                                  Text(
-                                                      style: const TextStyle(
-                                                          decoration:
-                                                              TextDecoration.underline,
-                                                          color: Colors.white),
-                                                      maxLines: 3,
-                                                      overflow: TextOverflow.ellipsis,
-                                                      '${msg.payload?['richContent'][0][0]['rawUrl']}'),
-                                                  // Text(
-                                                  //     '${msg.payload?['richContent'][0][2]['options'][0]['text']}')
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.end,
-                                                    children: [
-                                                      
-                                                      Text(formattedTime,style:TextStyle(color:Colors.grey)),
-                                                    ],
-                                                  )
-
-                                                ]),
-                                          ),
-                                        ],
-                                      ),
-                                    ))
-            
-                                //show playload
-                                // ? InkWell(
-                                //     onTap: () {
-                                //       print('dddd${widget.messages[index]['message']}');
-                                //       launchUrl(Uri.parse('${msg.payload?['richContent'][0][2]['options'][0]['link']}'));
-                                //     },
-                                //     child: Row(children: [
-                                //       Image.network(
-                                //           '${msg.payload?['richContent'][0][0]['rawUrl']}',
-                                //           width: 100,
-                                //           height: 100,
-                                //           fit: BoxFit.cover),
-                                //           SizedBox(width:10),
-            
-                                //           Container(
-                                //             height:100,
-                                //             width: 130,
-                                //             child: Column(
-            
-                                //               crossAxisAlignment: CrossAxisAlignment.start,
-                                //               children:[
-                                //                 Text('${msg.payload?['richContent'][0][2]['options'][0]['text']}')
-            
-                                //                 // Text('${msg.payload?['richContent'][0][1]['options'][0]['text']}'),
-                                //                 // Text('${msg.payload?['richContent'][0][1]['options'][0]['link']}'),
-                                //                 // Text('${msg.payload?['richContent'][0][0]['options'][0]['rawUrl']}'),
-            
-                                //             ]),
-                                //           )
-                                //     ]))
-            
-                                : 
-                                
-                                ClickableLink(
-                                    text:
-                                        '${widget.messages[index]['message'].text.text[0]}',
-                                        time:'${formattedTime}',
-                                        isUserMessage: widget.messages[index]['isUserMessage'],
+                          child: widget.messages[index]['message']?.text
+                                      ?.text[0] ==
+                                  null
+                              ? InkWell(
+                                  onTap: () {
+                                    launchUrl(Uri.parse(
+                                        '${msg.payload?['richContent'][0][0]['actionLink']}'));
+                                  },
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        Image.network(
+                                            '${msg.payload?['richContent'][0][0]['rawUrl']}',
+                                            width: widget
+                                                        .messages[index]
+                                                            ['message']
+                                                        ?.text
+                                                        ?.text[0] ==
+                                                    null
+                                                ? 400
+                                                : 100,
+                                            height: 170,
+                                            fit: BoxFit.cover),
+                                        const SizedBox(height: 10),
+                                        SizedBox(
+                                          height: 100,
+                                          width: 600,
+                                          child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                // Text(
+                                                //     'widget.messages[index]['message']?.text?.text[0]'),
+                                                Text(
+                                                    '${msg.payload?['richContent'][0][0]['title']}'),
+                                                Text(
+                                                    '${msg.payload?['richContent'][0][0]['enrollment']}'),
+                                                Text(
+                                                    '${msg.payload?['richContent'][0][0]['duration']}'),
+                                                Text(
+                                                    style: const TextStyle(
+                                                        decoration:
+                                                            TextDecoration
+                                                                .underline,
+                                                        color: Colors.white),
+                                                    maxLines: 3,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    '${msg.payload?['richContent'][0][0]['rawUrl']}'),
+                                                // Text(
+                                                //     '${msg.payload?['richContent'][0][2]['options'][0]['text']}')
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    Text(formattedTime,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.grey)),
+                                                  ],
+                                                )
+                                              ]),
                                         ),
-                            // child: Text('${msg.payload}')
-                            // child: Text('${widget.messages[index]['message']?.text?.text[0]}')
-                           
-            
-                            ),
-                            
+                                      ],
+                                    ),
+                                  ))
+
+                              //show playload
+                              // ? InkWell(
+                              //     onTap: () {
+                              //       print('dddd${widget.messages[index]['message']}');
+                              //       launchUrl(Uri.parse('${msg.payload?['richContent'][0][2]['options'][0]['link']}'));
+                              //     },
+                              //     child: Row(children: [
+                              //       Image.network(
+                              //           '${msg.payload?['richContent'][0][0]['rawUrl']}',
+                              //           width: 100,
+                              //           height: 100,
+                              //           fit: BoxFit.cover),
+                              //           SizedBox(width:10),
+
+                              //           Container(
+                              //             height:100,
+                              //             width: 130,
+                              //             child: Column(
+
+                              //               crossAxisAlignment: CrossAxisAlignment.start,
+                              //               children:[
+                              //                 Text('${msg.payload?['richContent'][0][2]['options'][0]['text']}')
+
+                              //                 // Text('${msg.payload?['richContent'][0][1]['options'][0]['text']}'),
+                              //                 // Text('${msg.payload?['richContent'][0][1]['options'][0]['link']}'),
+                              //                 // Text('${msg.payload?['richContent'][0][0]['options'][0]['rawUrl']}'),
+
+                              //             ]),
+                              //           )
+                              //     ]))
+
+                              : ClickableLink(
+                                  text:
+                                      '${widget.messages[index]['message'].text.text[0]}',
+                                  time: '${formattedTime}',
+                                  isUserMessage: widget.messages[index]
+                                      ['isUserMessage'],
+                                ),
+                          // child: Text('${msg.payload}')
+                          // child: Text('${widget.messages[index]['message']?.text?.text[0]}')
+                        ),
                       ],
                     ),
                   );
                 },
-                
                 itemCount: widget.messages.length),
           ),
         ],
@@ -306,23 +311,24 @@ String formattedTime = DateFormat('h:mm a').format(now);
 //   );
 // }
 
-
 class ClickableLink extends StatelessWidget {
   final String text;
   final String time;
- final bool isUserMessage;
- 
+  final bool isUserMessage;
 
-  const ClickableLink({Key? key, required this.text,required this.isUserMessage,required this.time}) : super(key: key);
+  const ClickableLink(
+      {Key? key,
+      required this.text,
+      required this.isUserMessage,
+      required this.time})
+      : super(key: key);
 
   void openLink(String url) {
     print('url is $url');
     //  launchUrl(Uri.parse(url));
-     
-    launch(
-        "https://singularis.learningoxygen.com/");
+
+    launch(url);
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -341,7 +347,6 @@ class ClickableLink extends StatelessWidget {
         if (start < linkStart) {
           spans.add(TextSpan(text: text.substring(start, linkStart)));
         }
-       
 
         spans.add(
           TextSpan(
@@ -351,7 +356,7 @@ class ClickableLink extends StatelessWidget {
               decoration: TextDecoration.underline,
             ),
             recognizer: TapGestureRecognizer()
-              ..onTap = () => openLink(linkText),
+              ..onTap = () => openLink(linkText.replaceAll(')', '').replaceAll('(', '')),
           ),
         );
 
@@ -363,7 +368,7 @@ class ClickableLink extends StatelessWidget {
       spans.add(TextSpan(text: text.substring(start)));
     }
     //     spans.add(
-          
+
     //   TextSpan(
     //     text: ' $time', // Include the formatted time here
     //     style: TextStyle(
@@ -372,8 +377,7 @@ class ClickableLink extends StatelessWidget {
     //     ),
     //   ),
     // );
-    
- 
+
 // Text.rich(
 //   TextSpan(
 //     children: [
@@ -388,19 +392,17 @@ class ClickableLink extends StatelessWidget {
 // );
 
     return Column(
-       crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if(!isUserMessage)
-        
-       Text('Edulyst Venture',),
+        if (!isUserMessage)
+          Text(
+            'Edulyst Venture',
+          ),
         const SizedBox(height: 10),
         RichText(
           text: TextSpan(children: spans),
-         
-          
-           
-     ),
-      const SizedBox(width: 5),
+        ),
+        const SizedBox(width: 5),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -408,14 +410,13 @@ class ClickableLink extends StatelessWidget {
               time,
               style: TextStyle(fontSize: 10, color: Colors.grey),
             ),
-            SizedBox(width:5),
-             if (isUserMessage) 
-                        Icon(
-                         Icons.done_all,
-                          color: Colors.blue,
-                          size: 18,
-                        ),
-            
+            SizedBox(width: 5),
+            if (isUserMessage)
+              Icon(
+                Icons.done_all,
+                color: Colors.blue,
+                size: 18,
+              ),
           ],
         ),
       ],
