@@ -20,10 +20,11 @@ class ClickableTextWidget extends StatelessWidget {
 
     return RichText(
       text: TextSpan(
-        children: _buildTextSpans(hashtags, finalLinks),
+        children: _buildTextSpans(hashtags, finalLinks,),
       ),
     );
   }
+  
 
   List<TextSpan> _buildTextSpans(List<String> hashtags, List<String> links) {
     List<TextSpan> textSpans = [];
@@ -51,8 +52,12 @@ class ClickableTextWidget extends StatelessWidget {
       }
     }
 
-    return textSpans;
+    
+
+   return textSpans;
+    
   }
+  
 
   Future<void> _launchURL(String url) async {
     if (!url.startsWith("http://") && !url.startsWith("https://")) {

@@ -62,9 +62,9 @@ class MessagesScreenState extends State<MessagesScreen> {
     String getFormattedDate() {
       DateTime now = DateTime.now();
       DateTime formattedDate =
-          DateTime(now.year, now.month, now.day); // Remove the time portion
+          now; // Remove the time portion
       DateTime tomorrowDate =
-          DateTime(now.year, now.month, now.day + 1); // Get tomorrow's date
+          now.add(const Duration(days: 1));// Get tomorrow's date
 
       if (formattedDate == now) {
         return 'Today';
