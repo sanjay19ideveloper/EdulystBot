@@ -33,8 +33,8 @@ class _SpalshScreenState extends State<SpalshScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
             Image(
-              image: AssetImage('assets/edubot.png'),
-              width: 200,
+              image: AssetImage('assets/splash.png'),
+              width: 400,
             ),
             Text(
               'EduBot',
