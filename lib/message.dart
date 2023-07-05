@@ -1,4 +1,5 @@
 import 'package:dialog_flowtter/dialog_flowtter.dart';
+import 'package:edubot/clickable_link.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -128,148 +129,160 @@ class MessagesScreenState extends State<MessagesScreen> {
                           width: 8,
                         ),
                         Container(
-                          // height:
-                          //     widget.messages[index]['isUserMessage']
-                          //         ? 50
-                          //         : 60,
-                          padding: EdgeInsets.symmetric(
-                              vertical: widget.messages[index]['isUserMessage']
-                                  ? 0
-                                  : 14,
-                              horizontal: 14),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: const Radius.circular(
-                                  20,
-                                ),
-                                topRight: const Radius.circular(20),
-                                bottomRight: Radius.circular(
-                                    widget.messages[index]['isUserMessage']
-                                        ? 0
-                                        : 20),
-                                topLeft: Radius.circular(widget.messages[index]
+                            // height:
+                            //     widget.messages[index]['isUserMessage']
+                            //         ? 50
+                            //         : 60,
+                            padding: EdgeInsets.symmetric(
+                                vertical: widget.messages[index]
                                         ['isUserMessage']
-                                    ? 20
-                                    : 0),
-                              ),
-                              color: widget.messages[index]['isUserMessage']
-                                  ? const Color(0xff7062e3)
-                                  : Color.fromRGBO(157, 210, 167, 1)
-                                      .withOpacity(0.8)),
-                          constraints: widget.messages[index]['isUserMessage']
-                              ? null
-                              : BoxConstraints(maxWidth: w * 2 / 3),
-                          //   constraints: widget.messages[index]['isUserMessage']
-                          //  ? BoxConstraints(maxWidth: w * 2 / 3,)
-                          //  : BoxConstraints(maxWidth: w * 2 / 3,),
-                          child: widget.messages[index]['message']?.text
-                                      ?.text[0] ==
-                                  null
-                              ? InkWell(
-                                  onTap: () {
-                                    launchUrl(Uri.parse(
-                                        '${msg.payload?['richContent'][0][0]['actionLink']}'));
-                                  },
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                        Image.network(
-                                            '${msg.payload?['richContent'][0][0]['rawUrl']}',
-                                            width: widget
-                                                        .messages[index]
-                                                            ['message']
-                                                        ?.text
-                                                        ?.text[0] ==
-                                                    null
-                                                ? 400
-                                                : 100,
-                                            height: 170,
-                                            fit: BoxFit.cover),
-                                        const SizedBox(height: 10),
-                                        SizedBox(
-                                          height: 100,
-                                          width: 600,
-                                          child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                // Text(
-                                                //     'widget.messages[index]['message']?.text?.text[0]'),
-                                                Text(
-                                                    '${msg.payload?['richContent'][0][0]['title']}'),
-                                                Text(
-                                                    '${msg.payload?['richContent'][0][0]['enrollment']}'),
-                                                Text(
-                                                    '${msg.payload?['richContent'][0][0]['duration']}'),
-                                                Text(
-                                                    style: const TextStyle(
-                                                        decoration:
-                                                            TextDecoration
-                                                                .underline,
-                                                        color: Colors.white),
-                                                    maxLines: 3,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    '${msg.payload?['richContent'][0][0]['rawUrl']}'),
-                                                // Text(
-                                                //     '${msg.payload?['richContent'][0][2]['options'][0]['text']}')
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    Text(formattedTime,
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.grey)),
-                                                  ],
-                                                )
-                                              ]),
-                                        ),
-                                      ],
-                                    ),
-                                  ))
-
-                              //show playload
-                              // ? InkWell(
-                              //     onTap: () {
-                              //       print('dddd${widget.messages[index]['message']}');
-                              //       launchUrl(Uri.parse('${msg.payload?['richContent'][0][2]['options'][0]['link']}'));
-                              //     },
-                              //     child: Row(children: [
-                              //       Image.network(
-                              //           '${msg.payload?['richContent'][0][0]['rawUrl']}',
-                              //           width: 100,
-                              //           height: 100,
-                              //           fit: BoxFit.cover),
-                              //           SizedBox(width:10),
-
-                              //           Container(
-                              //             height:100,
-                              //             width: 130,
-                              //             child: Column(
-
-                              //               crossAxisAlignment: CrossAxisAlignment.start,
-                              //               children:[
-                              //                 Text('${msg.payload?['richContent'][0][2]['options'][0]['text']}')
-
-                              //                 // Text('${msg.payload?['richContent'][0][1]['options'][0]['text']}'),
-                              //                 // Text('${msg.payload?['richContent'][0][1]['options'][0]['link']}'),
-                              //                 // Text('${msg.payload?['richContent'][0][0]['options'][0]['rawUrl']}'),
-
-                              //             ]),
-                              //           )
-                              //     ]))
-
-                              : ClickableLink(
-                                  text:
-                                      '${widget.messages[index]['message'].text.text[0]}',
-                                  time: '${formattedTime}',
-                                  isUserMessage: widget.messages[index]
-                                      ['isUserMessage'],
+                                    ? 10
+                                    : 14,
+                                horizontal: 14),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: const Radius.circular(
+                                    20,
+                                  ),
+                                  topRight: const Radius.circular(20),
+                                  bottomRight: Radius.circular(
+                                      widget.messages[index]['isUserMessage']
+                                          ? 0
+                                          : 20),
+                                  topLeft: Radius.circular(
+                                      widget.messages[index]['isUserMessage']
+                                          ? 20
+                                          : 0),
                                 ),
-                          // child: Text('${msg.payload}')
-                          // child: Text('${widget.messages[index]['message']?.text?.text[0]}')
-                        ),
+                                color: widget.messages[index]['isUserMessage']
+                                    ? const Color(0xff9DB2BF)
+                                    : const Color(0xffDDE6ED)),
+                            constraints: widget.messages[index]['isUserMessage']
+                                ? null
+                                : BoxConstraints(maxWidth: w * 2 / 3),
+                            //   constraints: widget.messages[index]['isUserMessage']
+                            //  ? BoxConstraints(maxWidth: w * 2 / 3,)
+                            //  : BoxConstraints(maxWidth: w * 2 / 3,),
+                            child: widget.messages[index]['message']?.text
+                                        ?.text[0] ==
+                                    null
+                                ? InkWell(
+                                    onTap: () {
+                                      launchUrl(Uri.parse(
+                                          '${msg.payload?['richContent'][0][0]['actionLink']}'));
+                                    },
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          Image.network(
+                                              '${msg.payload?['richContent'][0][0]['rawUrl']}',
+                                              width: widget
+                                                          .messages[index]
+                                                              ['message']
+                                                          ?.text
+                                                          ?.text[0] ==
+                                                      null
+                                                  ? 400
+                                                  : 100,
+                                              height: 170,
+                                              fit: BoxFit.cover),
+                                          const SizedBox(height: 10),
+                                          SizedBox(
+                                            height: 100,
+                                            width: 600,
+                                            child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  // Text(
+                                                  //     'widget.messages[index]['message']?.text?.text[0]'),
+                                                  Text(
+                                                      '${msg.payload?['richContent'][0][0]['title']}',style: const TextStyle(
+                                                         
+                                                          color: Color(0xff27374D), fontWeight: FontWeight.w600,)),
+                                                  Text(
+                                                      '${msg.payload?['richContent'][0][0]['enrollment']}',style: const TextStyle(
+                                                          
+                                                          color: Color(0xff27374D), fontWeight: FontWeight.w600,)),
+                                                  Text(
+                                                      '${msg.payload?['richContent'][0][0]['duration']}',style: const TextStyle(
+                                                          
+                                                          color: Color(0xff27374D), fontWeight: FontWeight.w600,)),
+                                                  Text(
+                                                      style: const TextStyle(
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .underline,
+                                                                   fontWeight: FontWeight.w600,
+            
+                                                    color: Color(0xff576CBC),),
+                                                         
+                                                      maxLines: 3,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      '${msg.payload?['richContent'][0][0]['rawUrl']}'),
+                                                  // Text(
+                                                  //     '${msg.payload?['richContent'][0][2]['options'][0]['text']}')
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      Text(formattedTime,
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.grey)),
+                                                    ],
+                                                  )
+                                                ]),
+                                          ),
+                                        ],
+                                      ),
+                                    ))
+
+                                //show playload
+                                // ? InkWell(
+                                //     onTap: () {
+                                //       print('dddd${widget.messages[index]['message']}');
+                                //       launchUrl(Uri.parse('${msg.payload?['richContent'][0][2]['options'][0]['link']}'));
+                                //     },
+                                //     child: Row(children: [
+                                //       Image.network(
+                                //           '${msg.payload?['richContent'][0][0]['rawUrl']}',
+                                //           width: 100,
+                                //           height: 100,
+                                //           fit: BoxFit.cover),
+                                //           SizedBox(width:10),
+
+                                //           Container(
+                                //             height:100,
+                                //             width: 130,
+                                //             child: Column(
+
+                                //               crossAxisAlignment: CrossAxisAlignment.start,
+                                //               children:[
+                                //                 Text('${msg.payload?['richContent'][0][2]['options'][0]['text']}')
+
+                                //                 // Text('${msg.payload?['richContent'][0][1]['options'][0]['text']}'),
+                                //                 // Text('${msg.payload?['richContent'][0][1]['options'][0]['link']}'),
+                                //                 // Text('${msg.payload?['richContent'][0][0]['options'][0]['rawUrl']}'),
+
+                                //             ]),
+                                //           )
+                                //     ]))
+
+                                // : ClickableLink(
+                                //     text:
+                                //         '${widget.messages[index]['message'].text.text[0]}',
+                                //     time: '${formattedTime}',
+                                //     isUserMessage: widget.messages[index]
+                                //         ['isUserMessage'],
+                                //   ),
+                                // child: Text('${msg.payload}')
+                                // child: Text('${widget.messages[index]['message']?.text?.text[0]}')
+
+                                : ClickableTextWidget(
+                                    text:
+                                        '${widget.messages[index]['message'].text.text[0]}')),
                       ],
                     ),
                   );
@@ -329,7 +342,10 @@ class ClickableLink extends StatelessWidget {
       : super(key: key);
 
   void openLink(String url) {
-    print('url is $url');
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
+      url = "http://$url";
+      print('url is hel;lo $url');
+    }
     //  launchUrl(Uri.parse(url));
 
     launch(url);

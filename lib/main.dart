@@ -61,8 +61,8 @@ class _HomeState extends State<Home> {
               colors: [
                 // Color.fromARGB(120, 146, 187, 227),
                 // Color.fromARGB(255, 28, 115, 142),
-                Color(0xff7062e3),
-                Color(0xff7062e3),
+                Color(0xff0E1555),
+                Color(0xff0E1555),
               ],
             ),
           ),
@@ -86,8 +86,8 @@ class _HomeState extends State<Home> {
                   end: Alignment.bottomCenter,
                   colors: [
                     
-                     Color(0xff7062e3),
-                Color(0xff7062e3),
+                     Color(0xff0E1555),
+                Color(0xff0E1555),
                   ],
                 ),
               ),
