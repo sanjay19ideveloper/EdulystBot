@@ -34,16 +34,16 @@ class _SpalshScreenState extends State<SpalshScreen> {
           children: const [
             Image(
               image: AssetImage('assets/splash.png'),
-              width: 400,
+              width: 300,
             ),
-            Text(
-              'EduBot',
-              style: TextStyle(
-                fontFamily: 'Cera Pro',
-                color: Color.fromRGBO(28, 82, 126, 1),
-                fontSize: 45,
-              ),
-            ),
+            // Text(
+            //   'EduBot',
+            //   style: TextStyle(
+            //     fontFamily: 'Cera Pro',
+            //     color: Color.fromRGBO(28, 82, 126, 1),
+            //     fontSize: 45,
+            //   ),
+            // ),
             // Text(
             //   'A chatting assistant for Education',
             //   style: TextStyle(
@@ -53,7 +53,7 @@ class _SpalshScreenState extends State<SpalshScreen> {
             //   ),
             // ),
             SizedBox(
-              height: 50,
+              height: 20,
             ),
             SpinKitFadingCircle(
               color: Color.fromRGBO(28, 82, 126, 1),
